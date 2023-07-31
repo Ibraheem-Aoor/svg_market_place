@@ -31,8 +31,15 @@
                             <input type="text" placeholder="{{ translate('Name') }}" id="name" name="name"
                                 class="form-control" required value="{{ $attribute->getTranslation('name', $lang) }}">
                         </div>
+                        <div class="form-group mb-3 p-5">
+                            <label for="name">{{ translate('Required') }}</label> <br>
+                            <label class="aiz-switch aiz-switch-success mb-0">
+                                <input type="checkbox" name="is_required" @if ($attribute->is_required) checked @endif>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                     </div>
-                    
+
                     <div class="form-group mb-0 text-right">
                         <button type="submit" class="btn btn-primary">{{ translate('Save') }}</button>
                     </div>

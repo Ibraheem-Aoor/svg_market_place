@@ -34,4 +34,7 @@ return [
     'Sharjah' => 'Sharjah',
     'Umm al Qaywayn' => 'Umm al Qaywayn',
     'al-Fujayrah' => 'Al-Fujayrah',
+    'whatsaap_query' => "Hello! 👋 I'm interested in learning more about your products. Can you help me with some information?",
+    'contact_through_whatsaap'  =>  'Contact On Whatsaap',
+
 ];

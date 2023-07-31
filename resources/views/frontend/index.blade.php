@@ -184,8 +184,8 @@
                 <div class="section_products"
                     style="background-color: {{ get_setting('todays_deal_bg_color', '#efefef') }}">
                     <div class="text-right px-4 px-xl-5 pt-2 pt-md-2 padding_t">
-                        <a href="{{ route('todays-deal') }}"
-                            class="fs-15 fw-700 general_clr has-transition  veiw_btn hov-text-warning">{{ translate('View All') }}</a>
+                        {{-- <a href="{{ route('todays-deal') }}"
+                            class="fs-15 fw-700 general_clr has-transition  veiw_btn hov-text-warning">{{ translate('View All') }}</a> --}}
                     </div>
                     <div class="c-scrollbar-light overflow-hidden p-3 pb-3 pt-2  pt-md-2">
                         <div class="h-100 d-flex flex-column justify-content-center">

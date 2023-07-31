@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use AizPackages\CombinationGenerate\Services\CombinationService;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\ProductRequest;
+use App\Models\Attribute;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductTranslation;
@@ -176,12 +177,14 @@ class ProductController extends Controller
 
     public function add_more_choice_option(Request $request)
     {
-        $all_attribute_values = AttributeValue::with('attribute')->where('attribute_id', $request->attribute_id)->get();
+        $attribute            = Attribute::query()->with('attribute_values')->find($request->attribute_id);
+        $all_attribute_values = $attribute->attribute_values;
 
         $html = '';
-
+        $is_required    =   $attribute->is_required ? 'selected' : '';
+        $is_disabled    =   $attribute->is_required ? 'disabled' : '';
         foreach ($all_attribute_values as $row) {
-            $html .= '<option value="' . $row->value . '">' . $row->value . '</option>';
+            $html .= '<option value="' . $row->value . '" '.$is_required.''.' '. $is_disabled.'>' . $row->getTranslation('value') . '</option>';
         }
 
         echo json_encode($html);
@@ -510,7 +513,8 @@ class ProductController extends Controller
         $product_name = $request->name;
 
         if ($request->has('choice_no')) {
-            foreach ($request->choice_no as $key => $no) {
+            $choice_no      =   is_string($request->choice_no) ? explode(',' , $request->choice_no) : $request->choice_no;
+            foreach ($choice_no as $no) {
                 $name = 'choice_options_' . $no;
                 // foreach (json_decode($request[$name][0]) as $key => $item) {
                 if (isset($request[$name])) {
