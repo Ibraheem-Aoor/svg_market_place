@@ -47,7 +47,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{ translate('Site Whatsapp') }}</label>
                             <div class="col-md-8">
-                                <div class="input-group " data-toggle="aizuploader" data-type="image">
+                                <div class="input-group "  >
                                     <input type="hidden" name="types[]" value="whatsapp_number">
                                     <input type="text" name="whatsapp_number" class="form-control" placeholder="971056984563"
                                         value="{{ get_setting('whatsapp_number') }}">
