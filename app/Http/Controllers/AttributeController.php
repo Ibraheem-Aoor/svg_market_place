@@ -60,6 +60,7 @@ class AttributeController extends Controller
     {
         $attribute = new Attribute;
         $attribute->name = $request->name;
+        $attribute->is_required = $request->is_required == 'on' ? 1 : 0;
         $attribute->save();
 
         $attribute_translation = AttributeTranslation::firstOrNew(['lang' => env('DEFAULT_LANGUAGE'), 'attribute_id' => $attribute->id]);
@@ -112,6 +113,7 @@ class AttributeController extends Controller
         if($request->lang == env("DEFAULT_LANGUAGE")){
           $attribute->name = $request->name;
         }
+        $attribute->is_required = $request->is_required == 'on' ? 1 : 0;
         $attribute->save();
 
         $attribute_translation = AttributeTranslation::firstOrNew(['lang' => $request->lang, 'attribute_id' => $attribute->id]);

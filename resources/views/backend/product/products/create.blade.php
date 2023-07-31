@@ -78,7 +78,7 @@
 
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="number" class="form-control" name="order_level" >
+                                    <input type="number" class="form-control" name="order_level">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -243,7 +243,9 @@
                                         data-live-search="true" multiple
                                         data-placeholder="{{ translate('Choose Attributes') }}">
                                         @foreach (\App\Models\Attribute::all() as $key => $attribute)
-                                            <option value="{{ $attribute->id }}">{{ $attribute->getTranslation('name') }}
+                                            <option value="{{ $attribute->id }}"
+                                                @if ($attribute->is_required) selected  disabled @endif>
+                                                {{ $attribute->getTranslation('name') }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -377,13 +379,13 @@
                     </div>
 
                     <!--                <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mb-0 h6">{{ translate('Product Shipping Cost') }}</h5>
-                                        </div>
-                                        <div class="card-body">
+                                                                                            <div class="card-header">
+                                                                                                <h5 class="mb-0 h6">{{ translate('Product Shipping Cost') }}</h5>
+                                                                                            </div>
+                                                                                            <div class="card-body">
 
-                                        </div>
-                                    </div>-->
+                                                                                            </div>
+                                                                                        </div>-->
 
                     <div class="card">
                         <div class="card-header">
@@ -784,20 +786,25 @@
                 },
                 success: function(data) {
                     var obj = JSON.parse(data);
-                    $('#customer_choice_options').append('\
-                                    <div class="form-group row">\
-                                        <div class="col-md-3">\
-                                            <input type="hidden" name="choice_no[]" value="' + i + '">\
-                                            <input type="text" class="form-control" name="choice[]" value="' + name +
+                    $('#customer_choice_options').append(
+                        '\
+                                                                                        <div class="form-group row">\
+                                                                                            <div class="col-md-3">\
+                                                                                                <input type="hidden" name="choice_no[]" value="' +
+                        i +
+                        '">\
+                                                                                                <input type="text" class="form-control" name="choice[]" value="' +
+                        name
+                        .trim() +
                         '" placeholder="{{ translate('Choice Title') }}" readonly>\
-                                        </div>\
-                                        <div class="col-md-8">\
-                                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
+                                                                                            </div>\
+                                                                                            <div class="col-md-8">\
+                                                                                                <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
                         i + '[]" multiple>\
-                                                ' + obj + '\
-                                            </select>\
-                                        </div>\
-                                    </div>');
+                                                                                                    ' + obj + '\
+                                                                                                </select>\
+                                                                                            </div>\
+                                                                                        </div>');
                     AIZ.plugins.bootstrapSelect('refresh');
                 }
             });
@@ -866,6 +873,67 @@
             });
 
             update_sku();
+        });
+
+        // Define the function to iterate through the options and update choices
+        var choice_attributes_array = [];
+
+        function iterateAndUpdate() {
+            $('#customer_choice_options').html(null);
+            $.each($("#choice_attributes option:selected"), function() {
+                add_more_customer_choice_option($(this).val(), $(this).text());
+                choice_attributes_array.push($(this).val());
+            });
+
+            // Serialize the form data using serializeArray()
+            var formData = $('#choice_form').serializeArray();
+            formData.push({
+                name: 'choice_no', // The new index name
+                value: choice_attributes_array, // The value of the selected option
+            });
+            // Initialize an empty array to store the selected option values
+            var selectedOptions = [];
+
+            // Loop through each select element with name starting with "choice_options_"
+            $('select[name^="choice_options_"]').each(function() {
+                // Get the selected option values using the 'val' method of the bootstrap-select plugin
+                var optionsSelected = $(this).val();
+
+                // Check if any option is selected
+                if (optionsSelected !== null) {
+                    // Add the selected options to the 'selectedOptions' array
+                    selectedOptions = selectedOptions.concat(optionsSelected);
+                }
+            });
+
+            console.log('selected values:');
+            console.log(selectedOptions);
+
+            formData.push({
+                name: 'choice_options_', // The new index name
+                value: selectedOptions, // The value of the selected option
+            });
+            console.log(formData, choice_attributes_array);
+            $.ajax({
+                type: "POST",
+                url: '{{ route('products.sku_combination') }}',
+                data: formData,
+                success: function(data) {
+                    $('#sku_combination').html(data);
+                    AIZ.uploader.previewGenerate();
+                    AIZ.plugins.fooTable();
+                    if (data.length > 1) {
+                        $('#show-hide-div').hide();
+                    } else {
+                        $('#show-hide-div').show();
+                    }
+                }
+            });
+        }
+
+        // Call the function after the document is ready
+        $(document).ready(function() {
+            iterateAndUpdate(); // Call the function to perform the iteration and update
         });
     </script>
 @endsection

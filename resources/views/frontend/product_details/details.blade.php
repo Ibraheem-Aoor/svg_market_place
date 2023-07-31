@@ -122,8 +122,33 @@
 
                     {{ translate('Ask a question') }}
                 </button>
+                @php
+                    $apiUrl = 'https://api.whatsapp.com/send';
+                    $messageText = __('custom.whatsaap_query');
+
+                    $queryParams = http_build_query([
+                        'phone' => get_setting('whatsapp_number'),
+                        'text' => $messageText . "\n\n" . $detailedProduct->getTranslation('name') . "\n\n" . route('product', $detailedProduct->slug),
+                        'image' => uploaded_asset($detailedProduct->meta_img) ,
+                    ]);
+
+                    $whatsappLink = $apiUrl . '?' . $queryParams;
+                @endphp
+
+
             </div>
         @endif
+    </div>
+    <div class="row mt-5">
+        <div class="col-sm-4 text-left fs-20 mt-3">
+            {{ __('custom.contact_through_whatsaap') }}
+        </div>
+        <div class="col-sm-3  text-left">
+            <a type="button" class="btn btn-success buy-now fw-600 add-to-cart min-w-150px rounded-0 fs-20"
+                href="{{ $whatsappLink }}" target="_blank">
+                <i class="la la-brands la-whatsapp  "></i>
+            </a>
+        </div>
     </div>
 
     <hr>
@@ -212,7 +237,7 @@
         @else
             <!-- Without Wholesale -->
             @if (home_price($detailedProduct) != home_discounted_price($detailedProduct))
-                <div class="row no-gutters mb-3 custom-d-none" >
+                <div class="row no-gutters mb-3 custom-d-none">
                     <div class="col-sm-2">
                         <div class="text-secondary fs-14 fw-400">{{ translate('Price') }}</div>
                     </div>
@@ -267,7 +292,7 @@
                     </div>
                 </div>
             @else
-                 <div class="row no-gutters mb-3 custom-d-none">
+                <div class="row no-gutters mb-3 custom-d-none">
                     <div class="col-sm-2">
                         <div class="text-secondary fs-14 fw-400">{{ translate('Price') }}</div>
                     </div>
@@ -340,7 +365,7 @@
                                                 @if ($key == 0) checked @endif>
                                             <span
                                                 class="aiz-megabox-elem rounded-0 d-flex align-items-center justify-content-center py-1 px-3">
-                                                {{ \App\Models\AttributeValue::query()->whereValue($value)->first()?->getTranslation('value')}}
+                                                {{ \App\Models\AttributeValue::query()->whereValue($value)->first()?->getTranslation('value') }}
                                             </span>
                                         </label>
                                     @endforeach
