@@ -99,7 +99,7 @@
                 @endif
             </a>
         </div>
-        
+
         <div class="row">
             <!-- about & subscription -->
             <div class="col-xl-6 col-lg-7">
@@ -728,6 +728,12 @@
                         <li class="list-inline-item ml-2 mr-2">
                             <a href="{{ get_setting('twitter_link') }}" target="_blank" class="twitter"><i
                                     class="lab la-twitter"></i></a>
+                        </li>
+                    @endif
+                    @if (!empty(get_setting('whatsapp_number')))
+                        <li class="list-inline-item ml-2 mr-2">
+                            <a href="{{ get_setting('whatsapp_number') }}" target="_blank" class="whatsapp_social"><i
+                                    class="la la-brands la-whatsapp"></i></a>
                         </li>
                     @endif
                     @if (!empty(get_setting('pinterest_link')))
