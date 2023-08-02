@@ -43,7 +43,7 @@ return [
     'file'                 => 'الـ :attribute يجب أن يكون ملفا.',
     'filled'               => ':attribute إجباري',
     'gt'                   => [
-        'numeric' => 'يجب أن تكون قيمة :attribute أكبر من :max.',
+        'numeric' => 'يجب أن تكون قيمة :attribute أكبر من :value.',
         'file'    => 'يجب أن يكون حجم الملف :attribute أكبر من :value كيلوبايت',
         'string'  => 'يجب أن يكون طول النّص :attribute أكثر من :value حروفٍ/حرفًا',
         'array'   => 'يجب أن يحتوي :attribute على أكثر من :value عناصر/عنصر.',

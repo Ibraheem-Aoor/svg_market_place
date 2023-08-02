@@ -125,7 +125,7 @@
                         @guest
                             @foreach (\App\Models\Address::query()->whereUserId(
                     request()->session()->get('temp_user_id'),
-                )->get() as $key => $address)
+                )->orderByDesc('created_at')->get() as $key => $address)
                                 <div class="border mb-4">
                                     <div class="row">
                                         <div class="col-md-8">

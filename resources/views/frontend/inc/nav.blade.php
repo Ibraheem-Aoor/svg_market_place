@@ -54,7 +54,7 @@
                     @endif
 
                     <!-- Currency Switcher -->
-                    @if (get_setting('show_currency_switcher') == 'on')
+                    {{-- @if (get_setting('show_currency_switcher') == 'on')
                         <li class="list-inline-item dropdown ml-auto ml-lg-0 mr-0" id="currency-change">
                             @php
                                 if (Session::has('currency_code')) {
@@ -79,7 +79,7 @@
                                 @endforeach
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
 
                 </ul>
             </div>
@@ -279,7 +279,7 @@
                                                                 <span class="ml-2">
                                                                     {{ translate('Order code: ') }}
                                                                     {{ $notification->data['order_code'] }}
-                                                                    {{ translate('has been ' . ucfirst(str_replace('_', ' ', $notification->data['status']))) }}
+                                                                    {{ translate('has been placed') }}
                                                                 </span>
                                                             </a>
                                                         @elseif (Auth::user()->user_type == 'seller')

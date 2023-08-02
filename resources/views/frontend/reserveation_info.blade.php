@@ -104,7 +104,7 @@
                                                             @if ($admin_product_variation[$key] != '')
                                                                 <span
                                                                     class="fs-12 text-secondary">{{ translate('Variation') }}:
-                                                                    {{ $admin_product_variation[$key] }}</span>
+                                                                    {{ $product->getTranslatedVariations($admin_product_variation[$key])}}</span>
                                                             @endif
                                                         </span>
                                                     </div>

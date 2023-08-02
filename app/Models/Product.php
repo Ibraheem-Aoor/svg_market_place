@@ -92,4 +92,18 @@ class Product extends Model
     {
         return Str::limit($this->name  , 40 , '..');
     }
+
+    //translate variations
+    function getTranslatedVariations($varations)
+    {
+        $varations_array = explode('-' , $varations);
+        $translated_variations = [];
+        foreach($varations_array as $value)
+        {
+            $taranslated_value = AttributeValue::query()->whereValue($value)->first()?->getTranslation('value')  ?? $value;
+
+            array_push($translated_variations , $taranslated_value);
+        }
+        return implode('-' , $translated_variations);
+    }
 }
