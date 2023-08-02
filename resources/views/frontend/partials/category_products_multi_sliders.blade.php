@@ -24,7 +24,7 @@
             ])
         </div>
         @if (count($slider_2_products) > 0)
-            <div class="box_products">
+            <div class="box_products mb-5">
                 <div class="row m-auto">
                     <!-- Swiper -->
                     <div class="swiper mySwiper">
@@ -40,7 +40,7 @@
             </div>
         @endif
         @if (count($slider_3_products) > 0)
-            <div class="row mx-auto my-auto">
+            <div class="row mx-auto my-auto mb-5">
                 {{-- Passing Multi products for this swiper. --}}
                 @include('frontend.partials.product_swiper_box_2', [
                     'products' => $slider_3_products,
@@ -49,7 +49,7 @@
             </div>
         @endif
         @if (count($slider_4_products) > 0)
-            <div class="box_products">
+            <div class="box_products mb-5">
                 <div class="row m-auto">
                     <!-- Swiper -->
                     <div class="swiper mySwiper">
