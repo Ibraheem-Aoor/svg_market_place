@@ -83,12 +83,16 @@
                                     class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="name">{{ translate('Required') }}</label> <br>
+                                <label for="name">{{ translate('Required') }}
+                                    <br>
+                                    <small>{{ translate('Required to fill for product creation') }}</small>
+                                </label> <br>
                                 <label class="aiz-switch aiz-switch-success mb-0">
                                     <input type="checkbox" name="is_required">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
+
                             <div class="form-group mb-3 text-right">
                                 <button type="submit" class="btn btn-primary">{{ translate('Save') }}</button>
                             </div>

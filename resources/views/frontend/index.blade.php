@@ -132,7 +132,7 @@
                                                             class="lazyload h-60px h-md-100px h-lg-140px mw-100 mx-auto has-transition"
                                                             alt="{{ $product->getTranslation('name') }}"
                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                                        {{-- <!-- Price -->
+                                                        <!-- Price -->
                                                         <div
                                                             class="fs-10 fs-md-14 mt-md-3 text-center h-md-48px has-transition overflow-hidden pt-md-4 flash-deal-price">
                                                             <span
@@ -141,7 +141,7 @@
                                                                 <del
                                                                     class="d-block fw-400 text-secondary">{{ home_base_price($product) }}</del>
                                                             @endif
-                                                        </div> --}}
+                                                        </div>
                                                     </a>
                                                 </div>
                                             @endif
@@ -284,6 +284,7 @@
                                                     alt="{{ $product->getTranslation('name') }}"
                                                     title="{{ $product->getTranslation('name') }}" width="100%">
                                             </a>
+                                            <span class="text-primary">{{ translate('Starts from') }}</span>
                                             @if (home_base_price($product) != home_discounted_base_price($product))
                                                 <span>
                                                     <del
@@ -356,6 +357,7 @@
                                             alt="{{ $product->getTranslation('name') }}"
                                             title="{{ $product->getTranslation('name') }}" width="100%">
                                     </a>
+                                    <span class="text-primary">{{ translate('Starts from') }}</span>
                                     @if (home_base_price($product) != home_discounted_base_price($product))
                                         <span>
                                             <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
@@ -425,6 +427,7 @@
                                                     alt="{{ $product->getTranslation('name') }}"
                                                     title="{{ $product->getTranslation('name') }}" width="100%">
                                             </a>
+                                            <span class="text-primary">{{ translate('Starts from') }}</span>
                                             @if (home_base_price($product) != home_discounted_base_price($product))
                                                 <span>
                                                     <del
@@ -518,10 +521,10 @@
                                         height="320px">
                                     </iframe>
                                     <div class="btn_youtube">
-                                        <a href="https://www.youtube.com/@svec-uae" class="btn_first"  target="_blank">
+                                        <a href="https://www.youtube.com/@svec-uae" class="btn_first" target="_blank">
                                             <span>Subsecribe</span>
                                         </a>
-                                        <a href="https://www.youtube.com/@svec-uae" class="btn_seconed"  target="_blank">
+                                        <a href="https://www.youtube.com/@svec-uae" class="btn_seconed" target="_blank">
                                             <span>Like</span>
                                         </a>
                                     </div>

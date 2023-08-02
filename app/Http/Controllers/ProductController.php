@@ -182,7 +182,7 @@ class ProductController extends Controller
 
         $html = '';
         $is_required    =   $attribute->is_required ? 'selected' : '';
-        $is_disabled    =   $attribute->is_required ? 'disabled' : '';
+        $is_disabled    =   $attribute->is_required ? '' : '';
         foreach ($all_attribute_values as $row) {
             $html .= '<option value="' . $row->value . '" '.$is_required.''.' '. $is_disabled.'>' . $row->getTranslation('value') . '</option>';
         }
@@ -233,6 +233,7 @@ class ProductController extends Controller
                 Artisan::call('cache:clear');
         }catch(Throwable $e)
         {
+            dd($e);
             DB::rollBack();
             $response   =   ResponseHelper::generateResponse(false);
         }
@@ -526,6 +527,38 @@ class ProductController extends Controller
                     array_push($options, $data);
                 }
             }
+        }
+
+        $combinations = (new CombinationService())->generate_combination($options);
+        return view('backend.product.products.sku_combinations', compact('combinations', 'unit_price', 'colors_active', 'product_name'));
+    }
+    /**
+     * Custom sku combination for product create page to make required attributes valeus auto selected.
+     */
+    public function sku_combination_custom(Request $request)
+    {
+        $options = array();
+        if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
+            $colors_active = 1;
+            array_push($options, $request->colors);
+        } else {
+            $colors_active = 0;
+        }
+
+        $unit_price = $request->unit_price;
+        $product_name = $request->name;
+        $chosen_attributes  =   $request->chosen_attributes;
+        foreach($chosen_attributes as $attribute_id)
+        {
+            $choice_no[$attribute_id]   =   AttributeValue::query()->where('attribute_id' , $attribute_id)->pluck('value')->toArray();
+        }
+        foreach ($choice_no as $attribute_valeus) {
+            $data = [];
+            foreach($attribute_valeus as $value)
+            {
+                array_push($data, $value);
+            }
+            array_push($options, $data);
         }
 
         $combinations = (new CombinationService())->generate_combination($options);

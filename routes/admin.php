@@ -110,6 +110,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
         Route::post('/bulk-product-delete', 'bulk_product_delete')->name('bulk-product-delete');
 
         Route::post('/products/sku_combination', 'sku_combination')->name('products.sku_combination');
+        Route::post('/products/sku_combination-custom', 'sku_combination_custom')->name('products.sku_combination_custom');
         Route::post('/products/sku_combination_edit', 'sku_combination_edit')->name('products.sku_combination_edit');
         Route::post('/products/add-more-choice-option', 'add_more_choice_option')->name('products.add-more-choice-option');
     });

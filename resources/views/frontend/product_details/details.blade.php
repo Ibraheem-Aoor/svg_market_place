@@ -129,7 +129,7 @@
                     $queryParams = http_build_query([
                         'phone' => get_setting('whatsapp_number'),
                         'text' => $messageText . "\n\n" . $detailedProduct->getTranslation('name') . "\n\n" . route('product', $detailedProduct->slug),
-                        'image' => uploaded_asset($detailedProduct->meta_img) ,
+                        'image' => uploaded_asset($detailedProduct->meta_img),
                     ]);
 
                     $whatsappLink = $apiUrl . '?' . $queryParams;
@@ -353,7 +353,11 @@
                         <div class="row no-gutters mb-3">
                             <div class="col-sm-2">
                                 <div class="text-secondary fs-14 fw-400 mt-2 ">
-                                    {{ \App\Models\Attribute::find($choice->attribute_id)->getTranslation('name') }}
+                                    @php
+                                        $current_attribute = \App\Models\Attribute::query()->find($choice->attribute_id);
+
+                                    @endphp
+                                    {{ $current_attribute?->getTranslation('name') }}
                                 </div>
                             </div>
                             <div class="col-sm-10">
@@ -495,12 +499,12 @@
                 @else
                     <button type="button"
                         class="btn btn-warning mr-2 add-to-cart fw-600 min-w-150px rounded-0 text-white"
-                        @if (Auth::check()) onclick="addToCart()" @else onclick="showLoginModal()" @endif>
+                        onclick="addToCart()">
                         <i class="las la-shopping-bag"></i>
                         <span class="d-none d-md-inline-block"> {{ translate('Add to cart') }}</span>
                     </button>
                     <button type="button" class="btn btn-primary buy-now fw-600 add-to-cart min-w-150px rounded-0"
-                        @if (Auth::check()) onclick="buyNow()" @else onclick="showLoginModal()" @endif>
+                        onclick="buyNow()">
                         <i class="la la-shopping-cart"></i> {{ translate('Buy Now') }}
                     </button>
                 @endif

@@ -155,7 +155,10 @@
                                             </a>
                                         </strong>
                                         <small>
-                                            {{ $orderDetail->pivot->variation }}
+                                            @php
+                                                $p = new \App\Models\Product();
+                                            @endphp
+                                            {{ $p->getTranslatedVariations($orderDetail->pivot->variation) ?? $p->$orderDetail?->pivot?->variation }}
                                         </small>
                                         <br>
                                         <small>
@@ -165,7 +168,7 @@
                                             {{ translate('SKU') }}: {{ $product_stock['sku'] }}
                                         </small>
                                         <strong>
-                                            <a href="{{ route('auction-product', $orderDetail->slug) }}" target="_blank"
+                                            <a href="#" target="_blank"
                                                 class="text-muted">
                                                 {{ $orderDetail->getTranslation('name') }}
                                             </a>

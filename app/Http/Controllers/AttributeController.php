@@ -137,7 +137,10 @@ class AttributeController extends Controller
         foreach ($attribute->attribute_translations as $key => $attribute_translation) {
             $attribute_translation->delete();
         }
-
+        foreach ($attribute->attribute_values as $value) {
+            $value->attribute_value_translations()?->delete();
+            $value->delete();
+        }
         Attribute::destroy($id);
         flash(translate('Attribute has been deleted successfully'))->success();
         return redirect()->route('attributes.index');
@@ -177,22 +180,21 @@ class AttributeController extends Controller
     public function update_attribute_value(Request $request, $id)
     {
         $attribute_value = AttributeValue::findOrFail($id);
-
         $attribute_value->attribute_id = $request->attribute_id;
-        $attribute_value->value = ucfirst($request->value);
+        // $attribute_value->value = ucfirst($request->value);
 
         $attribute_value->save();
         AttributeValueTranslation::query()->updateOrCreate(
-                [
-                    'lang'      =>  $request->lang,
-                    'attribute_value_id'    =>  $attribute_value->id,
+            [
+                'lang'      =>  $request->lang,
+                'attribute_value_id'    =>  $attribute_value->id,
                 ],
                 [
-                    'lang'      =>  $request->lang,
-                    'attribute_value_id'    =>  $attribute_value->id,
-                    'value'     =>  $attribute_value->value,
+                'lang'      =>  $request->lang,
+                'attribute_value_id'    =>  $attribute_value->id,
+                'value'     =>  ucfirst($request->value),
                 ]
-            );
+                );
 
         flash(translate('Attribute value has been updated successfully'))->success();
         return back();
@@ -201,6 +203,7 @@ class AttributeController extends Controller
     public function destroy_attribute_value($id)
     {
         $attribute_values = AttributeValue::findOrFail($id);
+        $attribute_values->attribute_value_translations()?->delete();
         AttributeValue::destroy($id);
 
         flash(translate('Attribute value has been deleted successfully'))->success();
