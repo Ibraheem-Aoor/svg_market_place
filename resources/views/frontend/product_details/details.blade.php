@@ -447,7 +447,7 @@
             @endif
 
             <!-- Total Price -->
-            {{-- <div class="row no-gutters pb-3 d-none custom-d-none" id="chosen_price_div">
+            <div class="row no-gutters pb-3 d-none custom-d-none" id="chosen_price_div">
                 <div class="col-sm-2">
                     <div class="text-secondary fs-14 fw-400 mt-1">{{ translate('Total Price') }}</div>
                 </div>
@@ -458,7 +458,7 @@
                         </strong>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
         </form>
     @endif
