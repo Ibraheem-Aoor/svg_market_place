@@ -906,7 +906,10 @@
                         choice_attributes_array.push($(this).val());
                     })
             ).then(function() {
-                update_sku_custom(choice_attributes_array)
+                if(choice_attributes_array.length > 0)
+                {
+                    update_sku_custom(choice_attributes_array)
+                }
             });
         }
         // Call the function after the document is ready
