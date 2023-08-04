@@ -6,15 +6,14 @@
                 title="{{ $product->getTranslation('name') }}"
                 onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';" width="100%">
         </a>
-        @if (isset($is_price_visible) && $is_price_visible)
-            @if (home_base_price($product) != home_discounted_base_price($product))
-                <span>
-                    <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
-                </span>
-            @endif
-            <!-- price -->
-            <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
+        <span class="text-primary">{{ translate('Starts from') }}</span>
+        @if (home_base_price($product) != home_discounted_base_price($product))
+            <span>
+                <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
+            </span>
         @endif
+        <!-- price -->
+        <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
         {{--  <!-- add to cart -->  --}}
         <a class="cart-btn   h-35px aiz-p-hov-icon text-white fs-13 fw-700 d-flex flex-column   justify-content-center align-items-center"
             href="javascript:void(0)" onclick="showAddToCartModal({{ $product->id }})">

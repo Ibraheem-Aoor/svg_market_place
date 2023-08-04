@@ -55,7 +55,11 @@
             @if(strlen($str) > 0)
             <tr class="variant">
                 <td>
-                    <label for="" class="control-label">{{ $str }}</label>
+                    @php
+                    $p = new \App\Models\Product();
+                @endphp
+                <label for="" class="control-label">{{ $p->getTranslatedVariations($str)}}</label>
+
                 </td>
                 <td>
                     <input type="number" lang="en" name="price_{{ $str }}" value="@php

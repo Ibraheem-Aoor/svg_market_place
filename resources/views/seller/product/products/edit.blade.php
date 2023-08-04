@@ -108,7 +108,7 @@
                                 data-role="tagsinput">
                         </div>
                     </div>
-                    
+
                     @if (addon_is_activated('pos_system'))
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Barcode')}}</label>
@@ -365,7 +365,7 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-from-label">{{translate('Quantity')}}</label>
                     <div class="col-lg-6">
-                        <input type="number" lang="en" value="{{ $product->stocks->first()->qty }}" step="1"
+                        <input type="number" lang="en" value="{{ $product?->stocks?->first()?->qty ?? 999 }}" step="1"
                             placeholder="{{translate('Quantity')}}" name="current_stock" class="form-control">
                     </div>
                 </div>

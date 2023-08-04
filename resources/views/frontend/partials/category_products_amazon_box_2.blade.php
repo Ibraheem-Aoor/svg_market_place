@@ -18,6 +18,14 @@
                                 alt="{{ $product->getTranslation('name') }}"
                                 title="{{ $product->getTranslation('name') }}" width="100%">
                         </a>
+                        <span class="text-primary">{{ translate('Starts from') }}</span>
+                        @if (home_base_price($product) != home_discounted_base_price($product))
+                            <span>
+                                <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
+                            </span>
+                        @endif
+                        <!-- price -->
+                        <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
                         <a href="{{ route('product', $product->slug) }}">
                             <h6 class="my-2">{{ $product->getShowName() }}</h6>
                         </a>
@@ -76,6 +84,14 @@
                             alt="{{ $product->getTranslation('name') }}"
                             title="{{ $product->getTranslation('name') }}" width="100%">
                     </a>
+                    <span class="text-primary">{{ translate('Starts from') }}</span>
+                    @if (home_base_price($product) != home_discounted_base_price($product))
+                        <span>
+                            <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
+                        </span>
+                    @endif
+                    <!-- price -->
+                    <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
                     <a href="{{ route('product', $product->slug) }}">
                         <h6 class="my-2">{{ $product->getTranslation('name') }} </h6>
                     </a>
@@ -139,6 +155,14 @@
                                 alt="{{ $product->getTranslation('name') }}"
                                 title="{{ $product->getTranslation('name') }}" width="100%">
                         </a>
+                        <span class="text-primary">{{ translate('Starts from') }}</span>
+                        @if (home_base_price($product) != home_discounted_base_price($product))
+                            <span>
+                                <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
+                            </span>
+                        @endif
+                        <!-- price -->
+                        <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
                         <a href="{{ route('product', $product->slug) }}">
 
                             <h6 class="my-2">{{ $product->getShowName() }}</h6>
@@ -198,6 +222,14 @@
                             alt="{{ $product->getTranslation('name') }}"
                             title="{{ $product->getTranslation('name') }}" width="100%">
                     </a>
+                    <span class="text-primary">{{ translate('Starts from') }}</span>
+                    @if (home_base_price($product) != home_discounted_base_price($product))
+                        <span>
+                            <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
+                        </span>
+                    @endif
+                    <!-- price -->
+                    <span class="fw-700 text-primary">{{ home_discounted_base_price($product) }}</span>
                     <a href="{{ route('product', $product->slug) }}">
                         <h6 class="my-2">{{ $product->getTranslation('name') }} </h6>
                     </a>

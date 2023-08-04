@@ -30,6 +30,7 @@ use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\ClubPointController;
 use App\Http\Controllers\CommissionController;
 use AizPackages\ColorCodeConverter\Services\ColorCodeConverter;
+use App\Models\AttributeValue;
 
 //sensSMS function for OTP
 if (!function_exists('sendSMS')) {
@@ -1620,6 +1621,11 @@ if (!function_exists('timezones')) {
             '(GMT+13:00) Nuku\'alofa' => 'Pacific/Tongatapu'
         );
     }
+
+
+
+
+
 
 
 

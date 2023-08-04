@@ -26,7 +26,7 @@
                                     $total = $total + cart_product_price($cartItem, $product, false) * $cartItem['quantity'];
                                     $product_name_with_choice = $product->getTranslation('name');
                                     if ($cartItem['variation'] != null) {
-                                        $product_name_with_choice = $product->getTranslation('name') . ' - ' . $cartItem['variation'];
+                                        $product_name_with_choice = $product->getTranslation('name') . ' - ' . $product->getTranslatedVariations($cartItem['variation']);
                                     }
                                 @endphp
                                 <li class="list-group-item px-0">
