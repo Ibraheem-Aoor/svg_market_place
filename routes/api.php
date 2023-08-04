@@ -30,6 +30,8 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
     // varient price
     // Route::get('varient-price', [ProductController::class, 'getPrice']);
 
+    Route::get('/layouts/home',[LayoutController::class,'homeLayout']);
+
     Route::prefix('delivery-boy')->group(function () {
         Route::get('dashboard-summary/{id}', 'App\Http\Controllers\Api\V2\DeliveryBoyController@dashboard_summary')->middleware('auth:sanctum');
         Route::get('deliveries/completed/{id}', 'App\Http\Controllers\Api\V2\DeliveryBoyController@completed_delivery')->middleware('auth:sanctum');
