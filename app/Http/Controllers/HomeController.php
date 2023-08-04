@@ -820,8 +820,7 @@ class HomeController extends Controller
     }
     public function aboutUs()
     {
-        $data['branches']   =   Branch::query()->get();
-        return view('frontend.about_us' , $data);
+        return view('frontend.about_us');
     }
 
 
