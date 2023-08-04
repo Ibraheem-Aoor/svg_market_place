@@ -2138,6 +2138,7 @@ hr {
 .gutters-5 {
     margin-right: -5px;
     margin-left: -5px;
+    overflow-x: hidden;
 }
 
 .gutters-5>.col,
@@ -7928,7 +7929,7 @@ body {
     color: #1b1b28;
     background-color: #fff;
     max-width: 100vw;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 a,
@@ -8697,6 +8698,7 @@ input[type="number"] {
 .item_box {
     position: relative !important;
     transition: 0.8s !important;
+    margin: auto 0 !important;
 }
 
 .item_box .cart-btn {
@@ -11099,6 +11101,8 @@ div.footable-loader>span.fooicon:after {
 .aiz-carousel.gutters-5 .carousel-box {
     padding-left: 5px;
     padding-right: 5px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 .aiz-carousel.gutters-10 {
@@ -11748,6 +11752,15 @@ ul.nav_ul_social a {
 .padding_t {
     padding-top: 1.5rem !important;
     padding-bottom: 1rem !important;
+    padding-top: 1.3rem !important;
+    padding-bottom: 0.9rem !important;
+}
+
+@media (min-width:320px) and (max-width:769px) {
+    .padding_t {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
 }
 
 .nav_ul_social li {
@@ -13610,3 +13623,12 @@ width: 160px;
 }
 
 /*End Add Button in iframe video youtube */
+
+.div_img_slid {
+    border-radius: 16% !important;
+    transition: all 0.5s;
+}
+
+.div_img_slid:hover {
+    border-radius: 50% !important;
+}

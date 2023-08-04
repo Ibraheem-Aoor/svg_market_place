@@ -1,5 +1,5 @@
 {{--  /* <!-- Link Swiper's CSS --> */  --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<link rel="stylesheet" href="{{ static_asset('assets/css/swiper-bundle.min.css') }}" />
 
 @extends('frontend.layouts.app')
 @push('css')
@@ -132,7 +132,7 @@
                                                             class="lazyload h-60px h-md-100px h-lg-140px mw-100 mx-auto has-transition"
                                                             alt="{{ $product->getTranslation('name') }}"
                                                             onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                                        <!-- Price -->
+                                                        {{-- <!-- Price -->
                                                         <div
                                                             class="fs-10 fs-md-14 mt-md-3 text-center h-md-48px has-transition overflow-hidden pt-md-4 flash-deal-price">
                                                             <span
@@ -141,7 +141,7 @@
                                                                 <del
                                                                     class="d-block fw-400 text-secondary">{{ home_base_price($product) }}</del>
                                                             @endif
-                                                        </div>
+                                                        </div> --}}
                                                     </a>
                                                 </div>
                                             @endif
@@ -284,7 +284,6 @@
                                                     alt="{{ $product->getTranslation('name') }}"
                                                     title="{{ $product->getTranslation('name') }}" width="100%">
                                             </a>
-                                            <span class="text-primary">{{ translate('Starts from') }}</span>
                                             @if (home_base_price($product) != home_discounted_base_price($product))
                                                 <span>
                                                     <del
@@ -313,7 +312,7 @@
                                         <div class="absolute-top-right aiz-p-hov-icon"
                                             style="margin-left:17% !important;z-index:99 !important;">
                                             <a href="javascript:void(0)" class="hov-svg-white" data-placement="left"
-                                                style="margin-left:9% !important;"
+                                                style=""
                                                 onclick="addToWishList({{ $product->id }})">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14.4"
                                                     viewBox="0 0 16 14.4" class="w-sm-10">
@@ -357,7 +356,6 @@
                                             alt="{{ $product->getTranslation('name') }}"
                                             title="{{ $product->getTranslation('name') }}" width="100%">
                                     </a>
-                                    <span class="text-primary">{{ translate('Starts from') }}</span>
                                     @if (home_base_price($product) != home_discounted_base_price($product))
                                         <span>
                                             <del class="fw-400 text-secondary mr-1">{{ home_base_price($product) }}</del>
@@ -427,7 +425,6 @@
                                                     alt="{{ $product->getTranslation('name') }}"
                                                     title="{{ $product->getTranslation('name') }}" width="100%">
                                             </a>
-                                            <span class="text-primary">{{ translate('Starts from') }}</span>
                                             @if (home_base_price($product) != home_discounted_base_price($product))
                                                 <span>
                                                     <del
@@ -521,10 +518,10 @@
                                         height="320px">
                                     </iframe>
                                     <div class="btn_youtube">
-                                        <a href="https://www.youtube.com/@svec-uae" class="btn_first" target="_blank">
+                                        <a href="https://www.youtube.com/@svec-uae" class="btn_first"  target="_blank">
                                             <span>Subsecribe</span>
                                         </a>
-                                        <a href="https://www.youtube.com/@svec-uae" class="btn_seconed" target="_blank">
+                                        <a href="https://www.youtube.com/@svec-uae" class="btn_seconed"  target="_blank">
                                             <span>Like</span>
                                         </a>
                                     </div>
@@ -1063,7 +1060,7 @@
         });
     </script>
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="{{ static_asset('assets/js/swiper-bundle.min.js') }}"></script>
 
     <!-- Initialize Swiper -->
     <script>

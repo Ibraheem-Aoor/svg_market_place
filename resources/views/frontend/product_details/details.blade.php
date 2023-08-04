@@ -133,11 +133,11 @@
         @endif
     </div>
     <div class="row mt-5">
-        <div class="col-sm-4 text-left fs-20 mt-3">
+        <div class="col-xs-4 text-left fs-15 mt-3  mr-2 fw-700 pl-2">
             {{ __('custom.contact_through_whatsaap') }}
         </div>
-        <div class="col-sm-3  text-left">
-            <a type="button" class="fw-600  min-w-150px rounded-0 fs-20 ws-custom" href="{{ $whatsappLink }}"
+        <div class="col-xs-4  text-center">
+            <a type="button" class="fw-600  min-w-150px rounded-0 fs-18 ws-custom" href="{{ $whatsappLink }}"
                 target="_blank">
                 <i class="la la-brands la-whatsapp" style="font-size:40px !important;"></i>
             </a>
