@@ -774,7 +774,7 @@
 
         });
 
-        function add_more_customer_choice_option(i, name) {
+        async function add_more_customer_choice_option(i, name) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -880,8 +880,8 @@
 
         function iterateAndUpdate() {
             $('#customer_choice_options').html(null);
-            $.each($("#choice_attributes option:selected"), function() {
-                add_more_customer_choice_option($(this).val(), $(this).text());
+            $.each($("#choice_attributes option:selected"), async function() {
+                await add_more_customer_choice_option($(this).val(), $(this).text());
                 choice_attributes_array.push($(this).val());
             });
 
@@ -906,14 +906,12 @@
                 }
             });
 
-            console.log('selected values:');
-            console.log(selectedOptions);
-
             formData.push({
                 name: 'choice_options_', // The new index name
                 value: selectedOptions, // The value of the selected option
             });
             console.log(formData, choice_attributes_array);
+
             $.ajax({
                 type: "POST",
                 url: '{{ route('products.sku_combination') }}',
@@ -927,13 +925,27 @@
                     } else {
                         $('#show-hide-div').show();
                     }
+                    
+                    var choice_attributes=$(document).find("#choice_attributes")[0]
+                    var selected_choice_attributes=[];
+                    for (var i = 0; i < choice_attributes.length; i++) {
+                        if(choice_attributes[i].selected){
+                            var selectedValue = choice_attributes[i].value;
+                            var attribute_input=$(document).find('select[name="choice_options_'+selectedValue+'[]"]')
+                            var selected_options=$(attribute_input[0]).find(':selected').map(function(i, el) {
+                                return $(el).val();
+                            })
+                            console.log(selected_options)
+                        }
+                    }
+
                 }
             });
         }
 
         // Call the function after the document is ready
         $(document).ready(function() {
-            iterateAndUpdate(); // Call the function to perform the iteration and update
+            iterateAndUpdate(); // Call the function to perform the iteration and update        
         });
     </script>
 @endsection

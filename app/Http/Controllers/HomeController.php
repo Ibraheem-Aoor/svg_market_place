@@ -78,16 +78,16 @@ class HomeController extends Controller
             return filter_products(Product::latest())->limit(18)->get();
         });
 
-        $data['recommended_products']   =   $this->getRecommendedProducts();
+        $data['recommended_products'] = $this->getRecommendedProducts();
 
         $data['home_categories'] = $this->getHomeCategories();
 
-        $data['cart_added']             =   $this->getCurrentCart();
-        $data['offers_category_products']               =   get_cached_products($data['home_categories']->first()?->id);
-        $data['offers_category_products_for_slider']    =   $data['offers_category_products']->slice(0,20);
-        $data['offers_category_products_for_grid_1']    =   $data['offers_category_products']->slice(19,4);
-        $data['offers_category_products_for_grid_2']    =   $data['offers_category_products']->slice(23,2);
-        $data['offers_category_products_for_grid_3']    =   $data['offers_category_products']->slice(25,4);
+        $data['cart_added'] = $this->getCurrentCart();
+        $data['offers_category_products'] = get_cached_products($data['home_categories']->first()?->id);
+        $data['offers_category_products_for_slider'] = $data['offers_category_products']->slice(0, 20);
+        $data['offers_category_products_for_grid_1'] = $data['offers_category_products']->slice(19, 4);
+        $data['offers_category_products_for_grid_2'] = $data['offers_category_products']->slice(23, 2);
+        $data['offers_category_products_for_grid_3'] = $data['offers_category_products']->slice(25, 4);
 
         return view('frontend.index', $data);
     }
@@ -96,30 +96,28 @@ class HomeController extends Controller
     public function getRecommendedProducts()
     {
         return Cache::rememberForever('recommended_products', function () {
-                    $user = Auth::user();
-                    if($user && $user->wishlists()->count() > 0)
-                    {
-                        $user_wished_products_ids                       =   $user->wishlists()->inRandomOrder()->limit(15)->pluck('product_id')->toArray();
-                        $recommended_products_categories_ids            =    Product::query()->whereIn('id' , $user_wished_products_ids)->pluck('category_id')->toArray();
-                        $recommended_products                           =    Product::query()->whereNotIn('id' , $user_wished_products_ids)
-                                                                                ->whereIn('category_id' , $recommended_products_categories_ids)
-                                                                                ->limit(7)->get();
-                    }else{
-                        $recommended_products = filter_products(\App\Models\Product::inRandomOrder())
-                        ->limit(7)
-                        ->get();
-                    }
-                    return $recommended_products;
-            });
-
+            $user = Auth::user();
+            if ($user && $user->wishlists()->count() > 0) {
+                $user_wished_products_ids = $user->wishlists()->inRandomOrder()->limit(15)->pluck('product_id')->toArray();
+                $recommended_products_categories_ids = Product::query()->whereIn('id', $user_wished_products_ids)->pluck('category_id')->toArray();
+                $recommended_products = Product::query()->whereNotIn('id', $user_wished_products_ids)
+                    ->whereIn('category_id', $recommended_products_categories_ids)
+                    ->limit(7)->get();
+            } else {
+                $recommended_products = filter_products(\App\Models\Product::inRandomOrder())
+                    ->limit(7)
+                    ->get();
+            }
+            return $recommended_products;
+        });
     }
 
 
     public function getHomeCategories()
     {
         $home_categories_ids = json_decode(get_setting('home_categories'));
-        return Cache::rememberForever('home_categories', function ()use($home_categories_ids) {
-            return Category::query()->whereIn('id' , $home_categories_ids)->orderByDesc('order_level')->get();
+        return Cache::rememberForever('home_categories', function () use ($home_categories_ids) {
+            return Category::query()->whereIn('id', $home_categories_ids)->orderByDesc('order_level')->get();
         });
     }
 
@@ -153,9 +151,9 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
-        if(Route::currentRouteName() == 'seller.login' && get_setting('vendor_system_activation') == 1){
+        if (Route::currentRouteName() == 'seller.login' && get_setting('vendor_system_activation') == 1) {
             return view('frontend.seller_login');
-        }else if(Route::currentRouteName() == 'deliveryboy.login' && addon_is_activated('delivery_boy')){
+        } else if (Route::currentRouteName() == 'deliveryboy.login' && addon_is_activated('delivery_boy')) {
             return view('frontend.deliveryboy_login');
         }
         return view('frontend.user_login');
@@ -231,12 +229,12 @@ class HomeController extends Controller
             return redirect()->route('seller.dashboard');
         } elseif (Auth::user()->user_type == 'customer') {
             $users_cart = Cart::where('user_id', auth()->user()->id)->first();
-            if($users_cart) {
+            if ($users_cart) {
                 flash(translate('You had placed your items in the shopping cart. Try to order before the product quantity runs out.'))->warning();
             }
-            $data['countries']  =   Country::query()->get();
-            $data['total_products_orderd']  =   Auth::user()?->svgProductsOrderdCount();
-            return view('frontend.user.customer.dashboard' , $data);
+            $data['countries'] = Country::query()->get();
+            $data['total_products_orderd'] = Auth::user()?->svgProductsOrderdCount();
+            return view('frontend.user.customer.dashboard', $data);
         } elseif (Auth::user()->user_type == 'delivery_boy') {
             return view('delivery_boys.dashboard');
         } else {
@@ -251,8 +249,8 @@ class HomeController extends Controller
         } elseif (Auth::user()->user_type == 'delivery_boy') {
             return view('delivery_boys.profile');
         } else {
-            $data['countries']  =   Country::query()->get();
-            return view('frontend.user.profile' , $data);
+            $data['countries'] = Country::query()->get();
+            return view('frontend.user.profile', $data);
         }
     }
 
@@ -337,11 +335,11 @@ class HomeController extends Controller
             session(['link' => url()->current()]);
         }
 
-        $detailedProduct  = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
+        $detailedProduct = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
 
         if ($detailedProduct != null && $detailedProduct->published) {
 
-            if(!addon_is_activated('wholesale') && $detailedProduct->wholesale_product == 1){
+            if (!addon_is_activated('wholesale') && $detailedProduct->wholesale_product == 1) {
                 abort(404);
             }
 
@@ -362,9 +360,11 @@ class HomeController extends Controller
             // review status
             $review_status = 0;
             if (Auth::check()) {
-                $OrderDetail = OrderDetail::with(['order' => function ($q) {
-                    $q->where('user_id', Auth::id());
-                }])->where('product_id', $detailedProduct->id)->where('delivery_status', 'delivered')->first();
+                $OrderDetail = OrderDetail::with([
+                    'order' => function ($q) {
+                        $q->where('user_id', Auth::id());
+                    }
+                ])->where('product_id', $detailedProduct->id)->where('delivery_status', 'delivered')->first();
                 $review_status = $OrderDetail ? 1 : 0;
             }
             if ($request->has('product_referral_code') && addon_is_activated('affiliate_system')) {
@@ -388,7 +388,7 @@ class HomeController extends Controller
 
     public function shop($slug)
     {
-        $shop  = Shop::where('slug', $slug)->first();
+        $shop = Shop::where('slug', $slug)->first();
         if ($shop != null) {
             if ($shop->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop'));
@@ -401,7 +401,7 @@ class HomeController extends Controller
 
     public function filter_shop(Request $request, $slug, $type)
     {
-        $shop  = Shop::where('slug', $slug)->first();
+        $shop = Shop::where('slug', $slug)->first();
         if ($shop != null && $type != null) {
 
             if ($type == 'all-products') {
@@ -601,31 +601,31 @@ class HomeController extends Controller
 
     public function sellerpolicy()
     {
-        $page =  Page::where('type', 'seller_policy_page')->first();
+        $page = Page::where('type', 'seller_policy_page')->first();
         return view("frontend.policies.sellerpolicy", compact('page'));
     }
 
     public function returnpolicy()
     {
-        $page =  Page::where('type', 'return_policy_page')->first();
+        $page = Page::where('type', 'return_policy_page')->first();
         return view("frontend.policies.returnpolicy", compact('page'));
     }
 
     public function supportpolicy()
     {
-        $page =  Page::where('type', 'support_policy_page')->first();
+        $page = Page::where('type', 'support_policy_page')->first();
         return view("frontend.policies.supportpolicy", compact('page'));
     }
 
     public function terms()
     {
-        $page =  Page::where('type', 'terms_conditions_page')->first();
+        $page = Page::where('type', 'terms_conditions_page')->first();
         return view("frontend.policies.terms", compact('page'));
     }
 
     public function privacypolicy()
     {
-        $page =  Page::where('type', 'privacy_policy_page')->first();
+        $page = Page::where('type', 'privacy_policy_page')->first();
         return view("frontend.policies.privacypolicy", compact('page'));
     }
 
@@ -720,7 +720,7 @@ class HomeController extends Controller
     public function email_change_callback(Request $request)
     {
         if ($request->has('new_email_verificiation_code') && $request->has('email')) {
-            $verification_code_of_url_param =  $request->input('new_email_verificiation_code');
+            $verification_code_of_url_param = $request->input('new_email_verificiation_code');
             $user = User::where('new_email_verificiation_code', $verification_code_of_url_param)->first();
 
             if ($user != null) {
@@ -815,25 +815,24 @@ class HomeController extends Controller
 
     public function contactUs()
     {
-        $data['branches']   =   Branch::query()->get();
-        return view('frontend.contact_us' , $data);
+        $data['branches'] = Branch::query()->get();
+        return view('frontend.contact_us', $data);
     }
     public function aboutUs()
     {
-        $data['branches']   =   Branch::query()->get();
-        return view('frontend.about_us' , $data);
+        $data['branches'] = Branch::query()->get();
+        return view('frontend.about_us', $data);
     }
 
 
     public function submitContactUs(ContactUsRequest $request)
     {
-        try{
+        try {
             $data = $request->toArray();
-            $data['phone']  =   "+{$data['country_code']}{$data['phone']}";
+            $data['phone'] = "+{$data['country_code']}{$data['phone']}";
             Contact::query()->create($data);
-            $response_data = ResponseHelper::generateResponse(true , 'home');
-        }catch(Throwable $e)
-        {
+            $response_data = ResponseHelper::generateResponse(true, 'home');
+        } catch (Throwable $e) {
             $response_data = ResponseHelper::generateResponse(false);
         }
         return response()->json($response_data);

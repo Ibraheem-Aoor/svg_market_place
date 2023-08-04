@@ -37,7 +37,7 @@ class ProductRequest extends FormRequest
         }else {
             $rules['discount' ] = 'required|numeric|lt:100';
         }
-        $rules['current_stock'] = 'required|numeric';
+        // $rules['current_stock'] = 'required|numeric';
 
         return $rules;
     }
