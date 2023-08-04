@@ -212,6 +212,7 @@
     transform: translate(0, -5px);
 }
     </style>
+
     @endif
 
 @if (get_setting('google_analytics') == 1)

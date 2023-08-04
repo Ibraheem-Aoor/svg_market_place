@@ -559,16 +559,21 @@
                 <div class="d-none d-xl-block all-category has-transition bg-black-10" id="category-menu-bar">
                     <div class="px-3 h-100"
                         style="padding-top: 6px;padding-bottom: 12px; width:270px; cursor: pointer;">
-                        <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between"
+                            style="padding:5px !important;">
                             <div>
-                                <span class="fw-700 fs-16 text-white mr-3">{{ translate('Categories') }}</span>
-                                <a href="{{ route('categories.all') }}" class="text-reset">
-                                    <span
-                                        class="d-none d-lg-inline-block text-white hov-opacity-80">({{ translate('See All') }})</span>
-                                </a>
+                                <span class="fw-700 fs-16 text-white mr-3">{{ translate('Categories') }}</span> &nbsp;
+                                <span>
+                                    <a href="{{ route('categories.all') }}" class="text-reset"
+                                        style="display: inline !important;"><span
+                                            class=" text-white hov-opacity-80">({{ translate('See All') }})</span>
+                                    </a>
+                                </span>
                             </div>
-                            <i class="las la-angle-down text-white has-transition" id="category-menu-bar-icon"
-                                style="font-size: 1.2rem !important"></i>
+                            @if (Route::currentRouteName() != 'home')
+                                <i class="las la-angle-down text-white has-transition" id="category-menu-bar-icon"
+                                    style="font-size: 1.2rem !important"></i>
+                            @endif
                         </div>
                     </div>
                 </div>
