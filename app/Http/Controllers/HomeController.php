@@ -47,6 +47,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $cacheKey = 'view:cached-home';
+        $cacheTime = 120;
+        if(Cache::has($cacheKey))
+        {
+            return Cache::get($cacheKey);
+        }else{
 
         $data['todays_deal_products'] = Cache::rememberForever('todays_deal_products', function () {
             return Product::query()->where('published' , 1)->where('todays_deal', '1')->limit(15)->get(['id' , 'name' , 'slug' , 'thumbnail_img']);
@@ -66,8 +72,13 @@ class HomeController extends Controller
         $data['offers_category_products_for_grid_1'] = $data['offers_category_products']->slice(19, 4);
         $data['offers_category_products_for_grid_2'] = $data['offers_category_products']->slice(23, 2);
         $data['offers_category_products_for_grid_3'] = $data['offers_category_products']->slice(25, 4);
+        $view      = view('frontend.index', $data)->render();
 
-        return view('frontend.index', $data);
+        return Cache::remember($cacheKey, $cacheTime, function ()use($view) {
+            return $view;
+        });
+    }
+
 
     }
 

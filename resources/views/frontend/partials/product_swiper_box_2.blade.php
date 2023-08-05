@@ -6,7 +6,7 @@
                     <div class="div_img_with_cart">
 
                         <a href="{{ route('product', $product->slug) }}">
-                            <img class="lazyload  has-transition" src="{{ static_asset('assets/img/placeholder.jpg') }}"
+                            <img loading="lazy" class="lazyload  has-transition" src="{{ static_asset('assets/img/placeholder.jpg') }}"
                                 data-src="{{ uploaded_asset($product->thumbnail_img) }}"
                                 alt="{{ $product->getTranslation('name') }}"
                                 title="{{ $product->getTranslation('name') }}"
