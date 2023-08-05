@@ -48,34 +48,12 @@ class HomeController extends Controller
     public function index()
     {
 
-        // $products  = Product::query()->inRandomOrder()->first();
-        // for($i = 0; $i < 50; $i++)
-        // {
-        //     $s = $products->replicate();
-        //     $s->category_id = 4;
-        //     $s->save();
-        // }
-        // dd('Do');
-        // $c = Category::query()->whereNotNull('cover_image')->first();
-        // for($i = 0; $i < 10; $i++)
-        // {
-        //     $s = $c->replicate();
-        //     $s->parent_id = 3;
-        //     $s->featured = 1;
-        //     $s->save();
-        // }
-        // dd('Do');
-
-        $data['featured_categories'] = Cache::rememberForever('featured_categories', function () {
-            return Category::where('featured', 1)->get();
-        });
-
         $data['todays_deal_products'] = Cache::rememberForever('todays_deal_products', function () {
-            return filter_products(Product::where('todays_deal', '1'))->get();
+            return Product::query()->where('published' , 1)->where('todays_deal', '1')->limit(15)->get(['id' , 'name' , 'slug' , 'thumbnail_img']);
         });
 
         $data['newest_products'] = Cache::remember('newest_products', 3600, function () {
-            return filter_products(Product::latest())->limit(18)->get();
+            return filter_products(Product::latest())->limit(15)->get();
         });
 
         $data['recommended_products'] = $this->getRecommendedProducts();
@@ -90,6 +68,7 @@ class HomeController extends Controller
         $data['offers_category_products_for_grid_3'] = $data['offers_category_products']->slice(25, 4);
 
         return view('frontend.index', $data);
+        
     }
 
 
@@ -102,9 +81,11 @@ class HomeController extends Controller
                 $recommended_products_categories_ids = Product::query()->whereIn('id', $user_wished_products_ids)->pluck('category_id')->toArray();
                 $recommended_products = Product::query()->whereNotIn('id', $user_wished_products_ids)
                     ->whereIn('category_id', $recommended_products_categories_ids)
+                    ->orderByDesc('order_level')
                     ->limit(7)->get();
             } else {
-                $recommended_products = filter_products(\App\Models\Product::inRandomOrder())
+                $recommended_products = Product::query()->where('published' , 1)->orderByDesc('order_level')
+                    ->inRandomOrder()
                     ->limit(7)
                     ->get();
             }

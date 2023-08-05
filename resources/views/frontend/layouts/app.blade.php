@@ -215,7 +215,7 @@
 
     @endif
 
-@if (get_setting('google_analytics') == 1)
+{{-- @if (get_setting('google_analytics') == 1)
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('TRACKING_ID') }}"></script>
 
@@ -225,7 +225,7 @@
         gtag('js', new Date());
         gtag('config', '{{ env('TRACKING_ID') }}');
     </script>
-@endif
+@endif --}}
 
 @if (get_setting('facebook_pixel') == 1)
     <!-- Facebook Pixel Code -->
@@ -247,9 +247,9 @@
     <!-- End Facebook Pixel Code -->
 @endif
 
-@php
+{{-- @php
     echo get_setting('header_script');
-@endphp
+@endphp --}}
 @stack('css')
 @if (app()->getLocale() == 'sa')
 <style>
@@ -304,7 +304,7 @@
     </div>
 
     <!-- cookies agreement -->
-    @if (get_setting('show_cookies_agreement') == 'on')
+    {{-- @if (get_setting('show_cookies_agreement') == 'on')
         <div class="aiz-cookie-alert shadow-xl">
             <div class="p-3 bg-dark rounded">
                 <div class="text-white mb-3">
@@ -347,7 +347,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     @include('frontend.partials.modal')
 
@@ -407,8 +407,6 @@
    {{-- End Section social media  --}}
 
 
-
-
     @yield('modal')
 
     <!-- SCRIPTS -->
@@ -418,7 +416,7 @@
 
 
 
-    @if (get_setting('facebook_chat') == 1)
+    {{-- @if (get_setting('facebook_chat') == 1)
         <script type="text/javascript">
             window.fbAsyncInit = function() {
                 FB.init({
@@ -441,7 +439,7 @@
           attribution=setup_tool
           page_id="{{ env('FACEBOOK_PAGE_ID') }}">
         </div>
-    @endif
+    @endif --}}
 
     <script>
         @foreach (session('flash_notification', collect())->toArray() as $message)
@@ -830,9 +828,9 @@
 
         @yield('script')
 
-        @php
+        {{-- @php
             echo get_setting('footer_script');
-        @endphp
+        @endphp --}}
 
         </body>
 
