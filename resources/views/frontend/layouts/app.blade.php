@@ -411,8 +411,8 @@
 
     <!-- SCRIPTS -->
     <script src="{{ static_asset('assets/js/vendors.js') }}"></script>
-    <script src="{{ static_asset('assets/js/aiz-core.js?v=0.01') }}{{ rand(1000, 9999) }}"></script>
-    <script src="{{ static_asset('assets/js/custom/frontend/master.js?v=0.01') }}"></script>
+    <script src="{{ static_asset('assets/js/aiz-core.js?v=0.01') }}{{ rand(1000, 9999) }}" defer></script>
+    <script src="{{ static_asset('assets/js/custom/frontend/master.js?v=0.01') }}" defer></script>
 
 
 
@@ -441,13 +441,13 @@
         </div>
     @endif --}}
 
-    <script>
+    <script defer>
         @foreach (session('flash_notification', collect())->toArray() as $message)
             AIZ.plugins.notify('{{ $message['level'] }}', '{{ $message['message'] }}');
         @endforeach
     </script>
 
-    <script>
+    <script defer>
         $(document).ready(function() {
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function(){
@@ -809,7 +809,7 @@
             }
         </script>
 
-        <script>
+        <script defer>
             var acc = document.getElementsByClassName("aiz-accordion-heading");
             var i;
             for (i = 0; i < acc.length; i++) {
