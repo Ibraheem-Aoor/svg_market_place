@@ -59,7 +59,7 @@ class HomeController extends Controller
         $data['recommended_products'] = $this->getRecommendedProducts();
 
         $data['home_categories'] = $this->getHomeCategories();
-
+        $this->cacheOurDesignSubCategories($data['home_categories']);
         $data['cart_added'] = $this->getCurrentCart();
         $data['offers_category_products'] = get_cached_products($data['home_categories']->first()?->id);
         $data['offers_category_products_for_slider'] = $data['offers_category_products']->slice(0, 20);
@@ -68,7 +68,7 @@ class HomeController extends Controller
         $data['offers_category_products_for_grid_3'] = $data['offers_category_products']->slice(25, 4);
 
         return view('frontend.index', $data);
-        
+
     }
 
 
@@ -98,11 +98,25 @@ class HomeController extends Controller
     {
         $home_categories_ids = json_decode(get_setting('home_categories'));
         return Cache::rememberForever('home_categories', function () use ($home_categories_ids) {
-            return Category::query()->whereIn('id', $home_categories_ids)->orderByDesc('order_level')->get();
+            return Category::query()->whereIn('id', $home_categories_ids)->orderByDesc('order_level')->get(['id' , 'name' , 'slug' , 'cover_image']);
         });
     }
 
-
+    /**
+     * Cache The second Block Datat in home page whihc os our design category sub-categories
+     */
+    public function cacheOurDesignSubCategories($home_categories){
+        $category = $home_categories[1];
+        Cache::rememberForever('sub-category-' . $category->id, function () use ($category) {
+            return $category
+                ->childrenCategories()
+                ->where('featured', 1)
+                ->orderByDesc('order_level')
+                ->orderByDesc('created_at')
+                ->limit(10)
+                ->get(['id' , 'name' , 'slug' , 'cover_image']) ?? collect([]);
+        });
+    }
 
 
     public function getCurrentCart()

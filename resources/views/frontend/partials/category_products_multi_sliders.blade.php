@@ -5,14 +5,13 @@
             ->where('published' , 1)
             ->orderByDesc('order_level')
             ->latest()
-            ->take(80)
-            ->get();
+            ->take(40)
+            ->get(['id' , 'name' , 'slug' , 'thumbnail_img']);
     });
-    $slider_1_products = $products->slice(0, 20);
-    $slider_2_products = $products->slice(19, 20);
-    $slider_3_products = $products->slice(39, 20);
-    $slider_4_products = $products->slice(59, 20);
-    $products_count = count($products);
+    $slider_1_products = $products->slice(0, 10);
+    $slider_2_products = $products->slice(10, 20);
+    $slider_3_products = $products->slice(20, 30);
+    $slider_4_products = $products->slice(30, 40);
 @endphp
 @if (count($slider_1_products) > 0)
     <div class="text-center">
