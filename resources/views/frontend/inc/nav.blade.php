@@ -134,7 +134,7 @@
 
                 </button>
                 <!-- Header Logo -->
-                <div class="col-auto pl-0 pr-3 d-flex align-items-center">
+                <div class="col-auto pl-0 pr-3 d-flex align-items-center padding_left_0">
                     <a class="d-block py-20px mr-3 ml-0" href="{{ route('home') }}">
                         @php
                             $header_logo = get_setting('header_logo');

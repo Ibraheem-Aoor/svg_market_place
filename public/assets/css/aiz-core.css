@@ -2138,7 +2138,6 @@ hr {
 .gutters-5 {
     margin-right: -5px;
     margin-left: -5px;
-    overflow-x: hidden;
 }
 
 .gutters-5>.col,
@@ -7929,7 +7928,7 @@ body {
     color: #1b1b28;
     background-color: #fff;
     max-width: 100vw;
-    overflow-x: hidden !important;
+    overflow-x: hidden!important;
 }
 
 a,
@@ -8734,18 +8733,13 @@ input[type="number"] {
     top: 13px;
     display: flex;
     flex-direction: column;
-    right: 69px;
+    left: 69px;
     display: none;
 }
 
-.absolute-top-right {
-    position: absolute;
-    top: 13px;
-    display: flex;
-    flex-direction: column;
-    right: 0px;
-    /* display: none; */
-}
+
+
+
 
 @media (min-width: 320px) and (max-width: 375px) {
     .gutters-16>.col, .gutters-16>[class*="col-"] {
@@ -11700,41 +11694,25 @@ div.footable-loader>span.fooicon:after {
 /*social icon colored*/
 ul.social a {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50em;
     line-height: 43px;
     text-align: center;
     font-size: 18px;
     /* background-color: #d5d5df; */
-    padding: 6px;
+    /* padding: 6px; */
 }
 
-.menu_social_media .dropdown-menu {
+/* .menu_social_media .dropdown-menu {
     min-width: auto !important;
     border-radius: 10px !important;
-
-}
+} */
 
 .nav_ul_social {
     display: flex !important;
-    flex-direction: column !important;
+    margin: 0!important;
 }
-
-
-/*social icon colored*/
-ul.nav_ul_social a {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50em;
-    line-height: 43px;
-    text-align: center;
-    font-size: 18px;
-    /* background-color: #d5d5df; */
-    padding: 6px;
-}
-
 
 
 .veiw_btn {
@@ -11799,6 +11777,14 @@ ul.social a:hover i {
 
 ul.social.colored i {
     color: #fff;
+    margin-top: 7px;
+}
+
+.menu_social_media .show.dropdown-menu{
+    transform: translate(-200px, -56px)!important;
+    text-align: center!important;
+    min-width: fit-content!important;
+    padding: 3px!important;
 }
 
 ul.social [class*="facebook"]:hover,
@@ -12238,7 +12224,8 @@ ul.apps a:hover i {
 
 /*navbar*/
 .aiz-navbar .search .input-group>select,
-.aiz-navb width: 50px;
+.aiz-navb{
+width: 50px;
 height: 50px;
 width: 160px;
 }
@@ -13486,8 +13473,9 @@ width: 160px;
     }
 
     .item_box .cart-btn {
-        bottom: -8px !important;
+        bottom: 4px !important;
     }
+
 
     .box_row_num_3 .item_box .cart-btn {
         bottom: 4px !important;
@@ -13571,6 +13559,12 @@ width: 160px;
         display: none;
     }
 }
+
+
+.list-inline-item:not(:last-child){
+    margin-left: 4px!important;
+}
+
 
 /*    {{--End Section social media  --}} */
 

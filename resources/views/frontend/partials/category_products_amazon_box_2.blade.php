@@ -43,7 +43,7 @@
                     <div class="absolute-top-right aiz-p-hov-icon"
                         style="margin-left:17% !important;z-index:99 !important;">
                         <a href="javascript:void(0)" class="hov-svg-white" data-placement="left"
-                            style="margin-left:9% !important;" onclick="addToWishList({{ $product->id }})">
+                            style="" onclick="addToWishList({{ $product->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14.4" viewBox="0 0 16 14.4"
                                 class="w-sm-10">
                                 <g id="_51a3dbe0e593ba390ac13cba118295e4" data-name="51a3dbe0e593ba390ac13cba118295e4"
@@ -109,7 +109,7 @@
                 <div class="absolute-top-right aiz-p-hov-icon"
                     style="margin-left:17% !important;z-index:99 !important;">
                     <a href="javascript:void(0)" class="hov-svg-white" data-placement="left"
-                        style="margin-left:9% !important;" onclick="addToWishList({{ $product->id }})">
+                        style="" onclick="addToWishList({{ $product->id }})">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14.4" viewBox="0 0 16 14.4"
                             class="w-sm-10">
                             <g id="_51a3dbe0e593ba390ac13cba118295e4" data-name="51a3dbe0e593ba390ac13cba118295e4"
@@ -181,7 +181,7 @@
                     <div class="absolute-top-right aiz-p-hov-icon"
                         style="margin-left:17% !important;z-index:99 !important;">
                         <a href="javascript:void(0)" class="hov-svg-white" data-placement="left"
-                            style="margin-left:9% !important;" onclick="addToWishList({{ $product->id }})">
+                            style="" onclick="addToWishList({{ $product->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14.4"
                                 viewBox="0 0 16 14.4" class="w-sm-10">
                                 <g id="_51a3dbe0e593ba390ac13cba118295e4" data-name="51a3dbe0e593ba390ac13cba118295e4"
@@ -247,7 +247,7 @@
                 <div class="absolute-top-right aiz-p-hov-icon"
                     style="margin-left:17% !important;z-index:99 !important;">
                     <a href="javascript:void(0)" class="hov-svg-white" data-placement="left"
-                        style="margin-left:9% !important;" onclick="addToWishList({{ $product->id }})">
+                        style="" onclick="addToWishList({{ $product->id }})">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="14.4" viewBox="0 0 16 14.4"
                             class="w-sm-10">
                             <g id="_51a3dbe0e593ba390ac13cba118295e4" data-name="51a3dbe0e593ba390ac13cba118295e4"

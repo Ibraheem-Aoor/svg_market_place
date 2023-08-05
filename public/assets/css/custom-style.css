@@ -220,6 +220,9 @@ hr {
     .section_featured {
         margin-top: 20px !important;
     }
+    .padding_left_0{
+        padding-left: 0!important;
+    }
 }
 
 
